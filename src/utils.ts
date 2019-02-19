@@ -4,8 +4,20 @@ import {
   GraphQLNonNull,
   GraphQLNamedType,
   GraphQLType,
-  GraphQLObjectType
+  GraphQLObjectType,
+  GraphQLInputObjectType,
+  GraphQLEnumType,
+  GraphQLScalarType,
+  GraphQLUnionType
 } from "graphql/type/definition";
+
+export type FilteredGraphqlOutputType = Exclude<
+  GraphQLNamedType,
+  | GraphQLInputObjectType
+  | GraphQLEnumType
+  | GraphQLScalarType
+  | GraphQLUnionType
+>;
 
 var baseEntities = ["Boolean", "Int", "String", "Float", "ID"];
 var filteredTypes = ["DateTime"];
@@ -35,7 +47,7 @@ export function getFieldLabel(type: GraphQLType): string {
       GraphQLType,
       GraphQLList<GraphQLType> | GraphQLNonNull<GraphQLType>
     >).name
-  }`;
+    }`;
 }
 
 export function isBaseEntity(entity: GraphQLNamedType): boolean {

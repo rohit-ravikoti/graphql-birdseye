@@ -1,12 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import defaultTheme, { Theme } from "./defaultTheme";
-import JointJS from "./jointjs/index";
 import { IntrospectionQuery } from "graphql/utilities/introspectionQuery";
 import { buildClientSchema } from "graphql/utilities/buildClientSchema";
 import { GraphQLSchema } from "graphql/type/schema";
 import { withResizeDetector } from 'react-resize-detector';
 import Loader from "./Loader";
+import Graph3D from "./3d-graph";
+
 export interface GraphqlBirdseyeProps {
   schema: GraphQLSchema | null;
   theme?: Theme;
@@ -24,14 +25,14 @@ export interface State {
 }
 class GraphqlBirdseye extends React.Component<GraphqlBirdseyeProps & ResizeDetectorProps> {
   ref: any;
-  jointjs: JointJS;
+  graph: Graph3D
   state: State = {
     activeType: "Query",
     loading: false
   };
   constructor(props: GraphqlBirdseyeProps & ResizeDetectorProps) {
     super(props);
-    this.jointjs = new JointJS({ theme: props.theme });
+    this.graph = new Graph3D();
   }
 
   async componentDidMount() {
@@ -39,21 +40,14 @@ class GraphqlBirdseye extends React.Component<GraphqlBirdseyeProps & ResizeDetec
       return;
     }
     const bounds = this.getBounds();
-    this.jointjs.on("loading:start", this.startLoading);
-    this.jointjs.on("loading:stop", this.stopLoading);
-    await this.jointjs.init(
-      ReactDOM.findDOMNode(this.ref),
-      bounds,
+    this.graph.init(
+      document.getElementById('3d-graph'),
       this.props.schema.getTypeMap()
-    );
-  }
-
-  componentWillUnmount() {
-    this.jointjs.destroy()
+    )
+    // this.props.schema.getTypeMap()
   }
   componentWillReceiveProps(nextProps: ResizeDetectorProps) {
     if (this.props.width !== nextProps.width || this.props.height !== nextProps.height) {
-      this.jointjs.setSize(nextProps.width, nextProps.height)
     }
   }
 
@@ -91,7 +85,7 @@ class GraphqlBirdseye extends React.Component<GraphqlBirdseyeProps & ResizeDetec
         }}
       >
         <div
-          id="playground"
+          id="3d-graph"
           ref={this.setRef}
           style={{ flex: 1 }}
         />
