@@ -25,8 +25,9 @@ export default class Graph3D {
             }
             return true;
         })
-        for (let key of toRenderTypes) {
-            const type = typeMap[key] as FilteredGraphqlOutputType;
+        for (let typeId of toRenderTypes) {
+            const type = typeMap[typeId] as FilteredGraphqlOutputType;
+
             const fields = type.getFields();
             const fieldArr = Object.keys(fields);
             const targetMap = fieldArr.reduce((accumulator, k) => {
@@ -41,6 +42,7 @@ export default class Graph3D {
                 return accumulator;
             }, {});
             const targetList = Object.keys(targetMap)
+
             for (let targetId of targetList) {
                 targetMap[targetId].forEach(field => {
                     links.push({
