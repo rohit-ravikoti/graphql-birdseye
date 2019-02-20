@@ -45,11 +45,14 @@ export default class Graph3D {
 
             for (let targetId of targetList) {
                 targetMap[targetId].forEach(field => {
-                    links.push({
-                        "source": type.name,
-                        "target": getNestedType(field),
-                        "name": field.name
-                    })
+                    const target = getNestedType(field)['type'].name;
+                    if (target) {
+                        links.push({
+                            "source": type.name,
+                            "target": target,
+                            "name": field.name
+                        })
+                    }
                 })
             }
             nodes.push({
