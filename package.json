@@ -9,7 +9,6 @@
     "graphql-visualizer",
     "graphql",
     "graphql-birdseye",
-    "jointjs",
     "graphql-playground"
   ],
   "main": "dist/index.js",
