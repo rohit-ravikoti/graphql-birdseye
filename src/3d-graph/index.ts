@@ -14,7 +14,7 @@ export default class Graph3D {
             .nodeAutoColorBy('id')
             .nodeResolution(32)
             .linkDirectionalParticles(3)
-            .linkDirectionalArrowLength(3.5)
+            .linkDirectionalArrowLength(2)
             .linkDirectionalArrowRelPos(1)
             .linkCurvature(0.25);
     }
