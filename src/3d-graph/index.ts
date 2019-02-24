@@ -12,7 +12,7 @@ export default class Graph3D {
             (el)
             .graphData(gData)
             .nodeAutoColorBy('id')
-            .nodeResolution(128)
+            .nodeResolution(32)
             .linkDirectionalParticles(3)
             .linkDirectionalArrowLength(3.5)
             .linkDirectionalArrowRelPos(1)
