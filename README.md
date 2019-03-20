@@ -1,4 +1,4 @@
-<p align="center"><img src="https://i.imgur.com/JBBZ9Yn.png" width="269"></p>
+<p align="center"><img src="docs/assets/logo.svg" width="150"></p>
 
 # graphql-birdseye
 
